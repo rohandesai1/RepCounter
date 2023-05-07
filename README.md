@@ -10,32 +10,20 @@
      ```Python
       def main():
 
-        detector = PoseDetector()
+        detector = PoseDetector() # initialize the detector
 
-        while True:
+        while True: # PROCESSING THE VIDEO FRAME BY FRAME
 
-            check, frame = video.read()
+            check, frame = video.read() 
 
-            detector.set_image(frame)
-            foundPose, poseDrawn = detector.set_pose()
-
-            if foundPose:
-                poseDrawn = detector.runPushupDetection(poseDrawn, True) # in addition to running the detection, it outputs an image with angle values written on as text
-
-
-            cv2.putText(poseDrawn, f"{(int(detector.get_pushup_reps()))} reps", (600, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 3)
+            detector.set_image(frame) # 
+            
+        def set_image(self, image):
+          self.image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+          self.height, self.width, _ = self.image.shape
 
 
-            cv2.imshow("Camera", poseDrawn)
-            key = cv2.waitKey(1)
 
-
-            if key == ord("x"):
-                break
-
-
-        if __name__ == "__main__":
-          video = cv2.VideoCapture(0)
-          main()
-   ```
+       
+      ```
 
