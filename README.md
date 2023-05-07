@@ -79,5 +79,27 @@
         ```
      - Once the person is located, the detection is initiated. 
      
+   * ## Step 2: Get Angles/Slopes Between Body Parts
+   - Mediapipe has numbers corresponding to each body part in its pose estimation model
+   
+     ```Python
+     def runPushupDetection(self, image, displayAngles):
+        right_shoulder = self.mpPose.PoseLandmark.RIGHT_SHOULDER
+        right_elbow = self.mpPose.PoseLandmark.RIGHT_ELBOW
+        right_wrist = self.mpPose.PoseLandmark.RIGHT_WRIST
+
+        left_shoulder = self.mpPose.PoseLandmark.LEFT_SHOULDER
+        left_elbow = self.mpPose.PoseLandmark.LEFT_ELBOW
+        left_wrist = self.mpPose.PoseLandmark.LEFT_WRIST
+
+        left_hip = self.mpPose.PoseLandmark.LEFT_HIP
+        right_hip = self.mpPose.PoseLandmark.RIGHT_HIP
+
+        right_knee = self.mpPose.PoseLandmark.RIGHT_KNEE
+        left_knee = self.mpPose.PoseLandmark.LEFT_KNEE
+
+        right_ankle = self.mpPose.PoseLandmark.RIGHT_ANKLE
+        left_ankle = self.mpPose.PoseLandmark.LEFT_ANKLE
+      ```
 
       
