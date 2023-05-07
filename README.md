@@ -6,7 +6,7 @@
 
 ## Explanation
    * ## Step 1: Video Processing 
-     - ```Python
+     ```Python
      
       #PART 1 OF THE MAIN FUNCTION
       
@@ -28,5 +28,15 @@
        
       ```
 
-   - The main funciton feeds the video to be analyzed into the PoseDetector class, where all the core functionalities are housed.  
+   - The main funciton feeds the video to be analyzed into the PoseDetector class, which will now search the video for "landmarks", a fancy word for the location of each body part. 
+   ```Python
+   def set_pose(self):
+        self.results = self.pose.process(self.image)
+        if self.results.pose_landmarks != None:
+            self.landmarks = self.results.pose_landmarks.landmark
+            self.mpDraw.draw_landmarks(self.image, self.results.pose_landmarks, self.mpPose.POSE_CONNECTIONS)
+            return True, cv2.cvtColor(self.image, cv2.COLOR_RGB2BGR)
+        else:
+            self.landmarks = []
+            return False, cv2.cvtColor(self.image, cv2.COLOR_RGB2BGR)
    
