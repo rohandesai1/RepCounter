@@ -82,6 +82,8 @@
    * ## Step 2: Get Angles/Slopes Between Body Parts
    - Mediapipe has numbers corresponding to each body part in its pose estimation model
    
+   ![rohandesai](https://github.com/rohandesai1/RepCounter/wiki)
+   
      ```Python
      def runPushupDetection(self, image, displayAngles):
         right_shoulder = self.mpPose.PoseLandmark.RIGHT_SHOULDER
