@@ -8,19 +8,21 @@
   
    * ## Step 1: Video Processing 
      ```Python
+     
+      #PART 1 OF THE MAIN FUNCTION
       def main():
 
         detector = PoseDetector() # initialize the detector
 
-        while True: # PROCESSING THE VIDEO FRAME BY FRAME
+        while True: 
 
             check, frame = video.read() 
 
-            detector.set_image(frame) # 
+            detector.set_image(frame) 
             
-        def set_image(self, image):
-          self.image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-          self.height, self.width, _ = self.image.shape
+       def set_image(self, image):
+         self.image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+         self.height, self.width, _ = self.image.shape
 
 
 
