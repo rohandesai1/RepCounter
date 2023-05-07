@@ -28,8 +28,17 @@
        
       ```
 
-   - The main funciton feeds the video to be analyzed into the PoseDetector class, which will now search the video for "landmarks", a fancy word for the location of each body part. 
+   The main funciton feeds the video to be analyzed into the PoseDetector class, which will now use Mediapipe to search for "landmarks", or the location of each body part. 
    ```Python
+   # PART 1 OF THE __init__ METHOD
+   
+   def __init__ (self):
+        self.mpPose = mp.solutions.pose
+        self.pose = self.mpPose.Pose(min_detection_confidence=0.75)
+        self.mpDraw = mp.solutions.drawing_utils
+        self.landmarks = []
+       
+      
    def set_pose(self):
         self.results = self.pose.process(self.image)
         if self.results.pose_landmarks != None:
@@ -40,3 +49,5 @@
             self.landmarks = []
             return False, cv2.cvtColor(self.image, cv2.COLOR_RGB2BGR)
    
+  ```
+  If MediaPipe locates any landmarks, they are added to `self.landmarks` and drawn onto the returned image
