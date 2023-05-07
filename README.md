@@ -6,7 +6,7 @@
 
 ## Explanation
    * ## Step 1: Video Processing 
-     
+     -
        ```Python
 
         #PART 1 OF THE MAIN FUNCTION
