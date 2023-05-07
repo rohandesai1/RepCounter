@@ -54,4 +54,12 @@
        ```
 
      - If MediaPipe locates any landmarks, they are added to `self.landmarks` and drawn onto the returned image
-     
+       ```Python
+       # PART 2 OF THE MAIN FUNCTION
+       foundPose, poseDrawn = detector.set_pose()
+
+        if foundPose:
+            poseDrawn = detector.runPushupDetection(poseDrawn, True)
+        ```
+     - Once the person is located, the detection is initiated. 
+      
