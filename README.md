@@ -167,7 +167,7 @@
          return angleInDegrees
         else:
           return 0
-   - The angle between 3 points is calculated by first finding the distances between the 3 points, and then using the arc cosine trigonometric function. Slope is calculated through the regular slope forumla, but also takes the depth into account so pushup detection works at any camera angle
+   - The angle between 3 points is calculated by first finding the distances between the 3 points, and then using the arc cosine trigonometric function. 
       ```Python
       def get_slope(self, bodyPart1, bodyPart2): # slope between 2 body parts (used for upper body straightness detection)
         if self.get_landmark(bodyPart1) != [] and self.get_landmark(bodyPart2) != []:
