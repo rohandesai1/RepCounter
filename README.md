@@ -80,11 +80,9 @@
      - Once the person is located, the detection is initiated. 
      
    * ## Step 2: Get Angles/Slopes Between Body Parts
-   - Mediapipe has numbers corresponding to each body part in its pose estimation model
-   
-   ![rohandesai](https://github.com/rohandesai1/RepCounter/wiki)
    
      ```Python
+     # PART 1 OF RUN PUSHUP DETECTION
      def runPushupDetection(self, image, displayAngles):
         right_shoulder = self.mpPose.PoseLandmark.RIGHT_SHOULDER
         right_elbow = self.mpPose.PoseLandmark.RIGHT_ELBOW
@@ -104,4 +102,94 @@
         left_ankle = self.mpPose.PoseLandmark.LEFT_ANKLE
       ```
 
-      
+   - Each body part "index" needed for pushup detection is stored as a pose object 
+      ```Python
+      # PART 2 OF RUN PUSHUP DETECTION
+      angle_right_upper = self.get_angle(right_shoulder, right_elbow, right_wrist)
+      angle_left_upper = self.get_angle(left_shoulder, left_elbow, left_wrist)
+
+      left_slope = self.get_slope(left_shoulder, left_hip) 
+      right_slope = self.get_slope(right_shoulder, right_hip)
+
+      angle_right_lower = self.get_angle(right_hip, right_knee, right_ankle)
+      angle_left_lower = self.get_angle(left_hip, left_knee, left_ankle)
+      ```
+  
+  - These objects are then inputted into methods which calculate the angles and slopes needed 
+     ```Python
+     # DISTANCE METHOD 
+     def get_distances(self, points): # all set of distances between any number of points (used for a,b,c in a triangle)
+        distances = []
+        numOfPoints = len(points)
+        for i in range(numOfPoints):
+            point1 = points[i]
+            if i == numOfPoints - 1:
+              point2 = points[0]
+            else:
+              point2 = points[i+1]
+
+            x_dis = abs(point1[0] - point2[0])
+            y_dis = abs(point1[1] - point2[1])
+            distance = math.sqrt((abs(y_dis ** 2 + x_dis ** 2)))
+
+            distances.append(distance)
+        return distances
+        
+     # ANGLE METHOD 
+     def get_angle(self, bp1, bp2, bp3): # bp -> body part, calc angle between 3 body parts
+       poseBodyPart = self.mpPose.PoseLandmark.RIGHT_SHOULDER
+
+       if type(bp1) == type(poseBodyPart): # if the coords of body parts are not given
+           p1 = self.get_landmark(bp1)
+           p2 = self.get_landmark(bp2)
+           p3 = self.get_landmark(bp3)
+        
+       elif type(bp1) == type([]): # if coords of body parts are given
+           p1 = bp1
+           p2 = bp2
+           p3 = bp3
+
+       else: # if we have random input
+           return 0
+           
+       if p1 != [] and p2 != [] and p3 != []: # requires all 3 values to calculate angle
+         locations = [p1, p2, p3]
+         distances = self.get_distances(locations)
+         a, b, c = np.asarray(distances)/1000 # normalize
+
+         angleInRadians = math.acos((a ** 2 + b ** 2 - c ** 2)/ (2 * a * b))
+         angleInDegrees = angleInRadians * (180.0 / math.pi)
+
+         return angleInDegrees
+        else:
+          return 0
+   - The angle between 3 points is calculated by first finding the distances between the 3 points, and then using the arc cosine trigonometric function. Slope is calculated through the regular slope forumla, but also takes the depth into account so pushup detection works at any camera angle
+      ```Python
+      def get_slope(self, bodyPart1, bodyPart2): # slope between 2 body parts (used for upper body straightness detection)
+        if self.get_landmark(bodyPart1) != [] and self.get_landmark(bodyPart2) != []:
+            
+            x1, y1, z1 = self.get_landmark(bodyPart1)
+            x2, y2, z2 = self.get_landmark(bodyPart2)
+
+            
+            slope = (y1-y2)/(x1-x2) 
+            slope = int(slope) + ((z1-z2) * int(slope)) # multiply by slope so depth difference is proportional to slope
+            return slope
+            
+        else:
+            return 4000
+      ```
+   - Both angle and slope functions utilize the `self.get_landmark` function listed below
+     ```Python
+     def get_landmark(self, bodyPart):
+        try: 
+            self.landmarks[bodyPart]
+        except (IndexError): # if the landmark/body part cannot be located 
+            return []
+         
+        x = self.landmarks[bodyPart].x * self.width
+        y = self.landmarks[bodyPart].y  * self.height
+        z = self.landmarks[bodyPart].z 
+
+        return[x,y,z]
+     ```
