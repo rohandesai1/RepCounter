@@ -6,7 +6,7 @@
 
 ## Explanation
    * ## Step 1: Video Processing 
-   - The main funciton feeds the video to be analyzed into the PoseDetector class, which will now use Mediapipe to search for "landmarks", or the location    of each body part. 
+     
      ```Python
      
       #PART 1 OF THE MAIN FUNCTION
@@ -28,8 +28,8 @@
          self.height, self.width, _ = self.image.shape
        
       ```
-
-     - If MediaPipe locates any landmarks, they are added to `self.landmarks` and drawn onto the returned image
+     - The main funciton feeds the video to be analyzed into the PoseDetector class, which will now use Mediapipe to search for "landmarks", or the location of each body part. 
+       
 
    
      ```Python
@@ -54,4 +54,4 @@
    
      ```
      
-  
+   - If MediaPipe locates any landmarks, they are added to `self.landmarks` and drawn onto the returned image
