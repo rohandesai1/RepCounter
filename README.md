@@ -28,7 +28,7 @@
        
       ```
 
-   The main funciton feeds the video to be analyzed into the PoseDetector class, which will now use Mediapipe to search for "landmarks", or the location of each body part. 
+   * The main funciton feeds the video to be analyzed into the PoseDetector class, which will now use Mediapipe to search for "landmarks", or the location of each body part. 
    ```Python
    # PART 1 OF THE __init__ METHOD
    
@@ -50,4 +50,4 @@
             return False, cv2.cvtColor(self.image, cv2.COLOR_RGB2BGR)
    
   ```
-  If MediaPipe locates any landmarks, they are added to `self.landmarks` and drawn onto the returned image
+  * If MediaPipe locates any landmarks, they are added to `self.landmarks` and drawn onto the returned image
