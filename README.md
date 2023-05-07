@@ -7,4 +7,6 @@
 ## Explanation
   
    * ## Step 1: Video Processing 
+      Capturing video ➤➤➤ `cv2.VideoCapture(0)` 
+      Reading video ➤➤➤ `video.read()`
 
