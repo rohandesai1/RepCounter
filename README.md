@@ -234,7 +234,7 @@
         return False
      ```
    - The criteria is listed above
-   * ##Step 4: Display Data and Reps
+   * ## Step 4: Display Data and Reps
    ```Python
    # FINAL PART OF RUN PUSHUP DETECTION
    if displayAngles:
