@@ -55,6 +55,10 @@
             self.pose = self.mpPose.Pose(min_detection_confidence=0.75)
             self.mpDraw = mp.solutions.drawing_utils
             self.landmarks = []
+            self.pushupIsDown = False 
+            self.jumped = False
+            self.pushup_reps = 0
+            self.jumping_jack_reps = 0
 
 
        def set_pose(self):
@@ -179,7 +183,7 @@
         else:
             return 4000
       ```
-   - Both angle and slope functions utilize the `self.get_landmark` function listed below
+   - Slope is calculated through the regular slope forumla, but also takes the depth into account so pushup detection works at any camera angle
      ```Python
      def get_landmark(self, bodyPart):
         try: 
@@ -193,3 +197,70 @@
 
         return[x,y,z]
      ```
+   - Both angle and slope functions utilize the `self.get_landmark` function listed above
+   * ## Step 3: Interpret Angle and Slope Measures
+     ```Python
+     # PART 3 OF RUN PUSHUP DETECTION
+     down = self.pushupDown(left_slope, right_slope, angle_right_lower, angle_left_lower, angle_right_upper, angle_left_upper)
+     up = self.pushupUp(left_slope, right_slope, angle_right_lower, angle_left_lower, angle_right_upper, angle_left_upper)
+
+
+     if down:
+       self.pushupIsDown = True
+
+
+
+     if self.pushupIsDown and up:
+       self.pushup_reps += 1
+       self.pushupIsDown = False
+     ```
+   - Angle and slope measures are then used to determine whether the person has gone both up and down in proper pushup form. If they have, the rep count increases
+   
+     ```Python
+     def pushupDown(self, left_slope, right_slope, angle_right_lower, angle_left_lower, angle_right_upper, angle_left_upper):
+        if left_slope < 0.5 and right_slope < 0.5: # body is flat
+          if (angle_right_lower > 150) and (angle_left_lower > 150): # legs are straight
+            if (0 > angle_right_upper < 70) or (0 < angle_left_upper < 70): #arms are bent
+              return True      
+                        
+        return False
+    
+     def pushupUp(self, left_slope, right_slope, angle_right_lower, angle_left_lower, angle_right_upper, angle_left_upper):
+        if left_slope < 0.5 and right_slope < 0.5: # body is flat
+          if (angle_right_lower > 150) and (angle_left_lower > 150): # legs are straight
+            if (angle_right_upper > 130) and (angle_left_upper > 130): #arms are straight
+              return True
+              
+        return False
+     ```
+   - The criteria is listed above
+   * ##Step 4: Display Data and Reps
+   ```Python
+   # FINAL PART OF RUN PUSHUP DETECTION
+   if displayAngles:
+     cv2.putText(image, f"{(int(angle_right_upper))} right upper body", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 3)
+     cv2.putText(image, f"{(int(angle_left_upper))} left upper body", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 3)
+
+     cv2.putText(image, f"{(int(left_slope))} left slope", (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 3)
+     cv2.putText(image, f"{(int(right_slope))} right slope", (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255), 3)
+
+     cv2.putText(image, f"{(int(angle_right_lower))} right lower body", (50, 250), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 3)
+     cv2.putText(image, f"{(int(angle_left_lower))}  left lower body", (50, 300), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255), 3)
+
+     return image
+   ```
+   - The angle and slope values are written onto the returned image
+   ```Python
+   # FINAL PART OF THE MAIN FUNCTION
+   cv2.putText(poseDrawn, f"{(int(detector.get_pushup_reps()))} reps", (600, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 3)
+
+   cv2.imshow("Camera", poseDrawn)
+   key = cv2.waitKey(1)
+
+
+   if key == ord("x"):
+     break
+   ```
+   - The updated rep count is displayed onto the shown image, and the whole process starts over!
+ 
+   
