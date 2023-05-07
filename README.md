@@ -6,5 +6,5 @@
 
 ## Explanation
   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ### Step 1: Video Processing 
+   ### *Step 1: Video Processing 
 
