@@ -21,8 +21,6 @@ class PoseDetector:
 
     def set_pose(self):
         self.results = self.pose.process(self.image)
-        if self.results.pose_world_landmarks != None:
-            self.real_world_landmarks = self.results.pose_world_landmarks.landmark
         if self.results.pose_landmarks != None:
             self.landmarks = self.results.pose_landmarks.landmark
             self.mpDraw.draw_landmarks(self.image, self.results.pose_landmarks, self.mpPose.POSE_CONNECTIONS)
@@ -40,7 +38,6 @@ class PoseDetector:
         x = self.landmarks[bodyPart].x * self.width
         y = self.landmarks[bodyPart].y  * self.height
         z = self.landmarks[bodyPart].z 
-        #print(3779.5275590551 * (self.real_world_landmarks[12].z - self.real_world_landmarks[24].z))
 
         return[x,y,z]
     
