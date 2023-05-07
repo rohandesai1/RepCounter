@@ -6,7 +6,7 @@
 
 ## Explanation
    * ## Step 1: Video Processing 
-     ```Python
+     - ```Python
      
       #PART 1 OF THE MAIN FUNCTION
       
@@ -25,10 +25,8 @@
        def set_image(self, image):
          self.image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
          self.height, self.width, _ = self.image.shape
-
-
-
        
       ```
 
    - The main funciton feeds the video to be analyzed into the PoseDetector class, where all the core functionalities are housed.  
+   
