@@ -54,3 +54,4 @@
        ```
 
      - If MediaPipe locates any landmarks, they are added to `self.landmarks` and drawn onto the returned image
+     
