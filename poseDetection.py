@@ -110,8 +110,7 @@ class PoseDetector:
     def pushupDown(self, left_slope, right_slope, angle_right_lower, angle_left_lower, angle_right_upper, angle_left_upper):
         if left_slope < 0.5 and right_slope < 0.5: # body is flat
                 if (angle_right_lower > 150) and (angle_left_lower > 150): # legs are straight
-
-                    if (angle_right_upper < 70 and angle_right_upper > 0) or (angle_left_upper < 70 and angle_left_upper > 0): #arms are bent
+                    if (0 < angle_right_upper < 70) or (0 < angle_left_upper < 70): #arms are bent
                         return True
                     
                         
