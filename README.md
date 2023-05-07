@@ -1,8 +1,8 @@
-# 👑 **REP COUNTER** 👑
+# **Rep Counter** 
 
 ## Introduction 
 
-  This project utilizes Mediapipes cutting edge Pose esitmation model and OpenCv's image processing to count repetitions of exercises in real-time. The program can calculate angles and distances between specific body parts, and use this information to count the number of repetitions performed during an exercise. The full explanation and details are listed in the **[Explanation](https://github.com/rohandesai1/RepCounter/blob/main/README.md#explanation)** section. To get started, please read **[Usage](https://github.com/rohandesai1/RepCounter/blob/main/README.md#usage)**.
+  This project utilizes Mediapipes cutting edge Pose esitmation model and OpenCv's image processing to count repetitions of exercises in real-time. The program can calculate angles and distances between specific body parts, and use this information to count the number of repetitions performed during an exercise. To see the program in action, go to the Demo section. The full explanation and details are listed in the **[Explanation](https://github.com/rohandesai1/RepCounter/blob/main/README.md#explanation)** section. To run this program on your own device, please read **[Usage](https://github.com/rohandesai1/RepCounter/blob/main/README.md#usage)**. 
 
 ## Usage
   
@@ -19,7 +19,8 @@
   3. Run the Program.
   <br></br>
   `python pushups.py` or `python jumpingJacks.py`
-   
+## Demo
+
 ## Explanation
    * ## Step 1: Video Processing 
      -
