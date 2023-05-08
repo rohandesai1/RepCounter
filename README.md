@@ -19,6 +19,10 @@
   3. Run the Program.
   <br></br>
   `python pushups.py` or `python jumpingJacks.py`
+  
+  - _**NOTE:**_
+  The pushup program works at every camera angle as long as your arms are **fully** visible.
+  
 ## Demo
 
 ## Explanation
