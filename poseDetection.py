@@ -113,7 +113,7 @@ class PoseDetector:
                     if (0 < angle_right_upper < 70) or (0 < angle_left_upper < 70): #arms are bent
                         return True
                     
-                        
+                         
         return False
     
     def pushupUp(self, left_slope, right_slope, angle_right_lower, angle_left_lower, angle_right_upper, angle_left_upper):
