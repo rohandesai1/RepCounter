@@ -25,6 +25,10 @@
   
 ## Demo
 
+
+https://github.com/rohandesai1/RepCounter/assets/126644574/8b6034f3-012c-4ca9-84e4-d0ffd77c03f2
+
+
 ## Explanation
    * ## Step 1: Video Processing 
      -
@@ -143,6 +147,9 @@
 
             distances.append(distance)
         return distances
+
+
+
         
      # ANGLE METHOD 
      def get_angle(self, bp1, bp2, bp3): # bp -> body part, calc angle between 3 body parts
